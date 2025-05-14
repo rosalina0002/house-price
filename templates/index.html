@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Previsão de Preço de Casas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Previsão de Preço de Casas</h1>
+        <form action="/prever" method="POST">
+            <label>Tamanho (m²):</label>
+            <input type="number" name="tamanho" step="any" required><br>
+
+            <label>Quartos:</label>
+            <input type="number" name="quartos" required><br>
+
+            <label>Banheiros:</label>
+            <input type="number" name="banheiros" required><br>
+
+            <label>Ano de construção:</label>
+            <input type="number" name="ano" required><br>
+
+            <label>Modelo:</label>
+            <select name="modelo">
+                <option value="linear">Regressão Linear</option>
+                <option value="arvore">Árvore de Decisão</option>
+                <option value="knn">KNN</option>
+                <option value="rede_neural">Rede Neural</option>
+            </select><br>
+
+            <input type="submit" value="Prever">
+        </form>
+
+        {% if previsao %}
+            <div class="resultado">
+                <h2>Resultado:</h2>
+                <p><strong>Modelo:</strong> {{ modelo }}</p>
+                <p><strong>Preço previsto:</strong> R$ {{ "%.2f"|format(previsao) }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
